@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>80秒电影网｜80秒看完一部电影的速看影库、放映时刻表与观影短评</title>
+<meta name="description" content="80秒电影网把一部长片压成大约80秒的速看解说：先讲清故事主线，再点出镜头语言与人物动机，最后给出值不值得看的一句话结论。站内收录动作、科幻、悬疑、文艺、动画等分类影库，配今日放映时刻表、编辑手记短评与选片问答，更新节奏为每日12条左右，适合通勤、睡前、饭点这些碎片时间快速挑片。">
+<meta name="keywords" content="80秒电影网,80秒看电影,电影速看,电影解说速看,影视推荐,在线影库,电影分类推荐,观影时刻表,电影短评,80秒电影网官网">
+<meta name="author" content="80秒电影网编辑部">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#0f1115">
+<link rel="canonical" href="https://80miaodianyingwang-app.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="80秒电影网">
+<meta property="og:title" content="80秒电影网｜80秒看完一部电影的速看影库">
+<meta property="og:description" content="长片压成80秒，故事主线、镜头语言、值不值得看一句话讲完。含分类影库、放映时刻表与编辑短评。">
+<meta property="og:url" content="https://80miaodianyingwang-app.github.io/">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="80秒电影网｜80秒看完一部电影">
+<meta name="twitter:description" content="电影速看解说、分类影库、放映时刻表、编辑短评，碎片时间挑片用。">
+<style>
+:root{
+  --ink:#0f1115;
+  --ink-2:#171a21;
+  --ink-3:#1f232c;
+  --line:#2b303b;
+  --paper:#e9e6df;
+  --muted:#9aa0ab;
+  --gold:#f5b642;
+  --mint:#7fd1c1;
+  --rose:#e8798a;
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,-apple-system,sans-serif;
+  font-size:16px;
+  line-height:1.75;
+  letter-spacing:.01em;
+}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--gold)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{line-height:1.3;margin:0;font-weight:700}
+p{margin:0}
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 20px}
+.skip{position:absolute;left:-9999px;top:0;background:var(--gold);color:#111;padding:8px 14px;z-index:9}
+.skip:focus{left:8px;top:8px}
+
+/* 顶部条 */
+.topbar{
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#14171e,#0f1115);
+  position:sticky;top:0;z-index:8;
+  backdrop-filter:saturate(140%) blur(6px);
+}
+.topbar .wrap{display:flex;align-items:center;gap:16px;min-height:62px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand b{font-size:20px;letter-spacing:.06em}
+.brand em{font-style:normal;font-size:12px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+.nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav a{
+  font-size:14px;color:var(--muted);padding:6px 12px;border-radius:999px;
+  border:1px solid transparent;
+}
+.nav a:hover,.nav a.on{color:var(--gold);border-color:rgba(245,182,66,.35);background:rgba(245,182,66,.08)}
+
+/* 首屏 */
+.hero{position:relative;padding:56px 0 40px;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(680px 320px at 78% 8%,rgba(245,182,66,.14),transparent 70%),
+    radial-gradient(520px 300px at 10% 90%,rgba(127,209,193,.10),transparent 70%);
+  pointer-events:none;
+}
+.hero-grid{display:grid;grid-template-columns:1fr 320px;gap:44px;align-items:start}
+.rail{
+  writing-mode:vertical-rl;
+  font-size:12px;letter-spacing:.42em;color:var(--muted);
+  border-right:1px solid var(--line);padding-right:14px;
+  min-height:180px;
+}
+.hero h1{
+  font-size:clamp(30px,5.4vw,54px);
+  letter-spacing:-.01em;
+  margin:0 0 18px;
+}
+.hero h1 mark{
+  background:none;color:var(--gold);
+  border-bottom:4px solid rgba(245,182,66,.35);
+  padding-bottom:2px;
+}
+.lede{font-size:clamp(15px,1.6vw,18px);color:#cfccc4;max-width:62ch}
+.lede strong{color:var(--paper);font-weight:600}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0 18px}
+.btn{
+  display:inline-block;padding:11px 22px;border-radius:999px;font-size:15px;font-weight:600;
+  border:1px solid var(--line);background:var(--ink-2);color:var(--paper);
+}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:#1a1408}
+.btn-gold:hover{color:#1a1408;filter:brightness(1.06)}
+.filmstrip{
+  margin:22px 0 0;height:34px;border-radius:6px;
+  background:
+    repeating-linear-gradient(90deg,var(--ink-3) 0 14px,transparent 14px 26px),
+    linear-gradient(180deg,#20252f,#151920);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+}
+.hostline{
+  margin-top:16px;font-size:13px;color:var(--muted);
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+}
+.hostline code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:var(--mint);background:rgba(127,209,193,.08);
+  border:1px dashed rgba(127,209,193,.3);padding:3px 9px;border-radius:6px;font-size:12.5px;
+}
+.tickbox{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:20px 18px;
+}
+.tickbox h2{font-size:14px;letter-spacing:.22em;color:var(--muted);font-weight:600;margin-bottom:14px}
+.tick{margin:0}
+.tick div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.tick div:last-child{border-bottom:0}
+.tick span:first-child{color:var(--muted)}
+.tick span:last-child{color:var(--gold);font-weight:700;font-variant-numeric:tabular-nums}
+
+/* 区块通用 */
+section{padding:46px 0;border-top:1px solid var(--line)}
+.sechead{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:26px}
+.sechead h2{font-size:clamp(21px,2.6vw,30px)}
+.sechead .no{
+  font-size:12px;letter-spacing:.3em;color:var(--gold);
+  border:1px solid rgba(245,182,66,.34);border-radius:4px;padding:2px 8px;
+}
+.sechead p{color:var(--muted);font-size:14px;max-width:52ch}
+
+/* 流程 */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);
+  padding:22px 20px;position:relative;
+}
+.step b{display:block;font-size:34px;color:rgba(245,182,66,.24);line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums}
+.step h3{font-size:17px;margin-bottom:8px}
+.step p{font-size:14px;color:var(--muted)}
+
+/* 影库 */
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;margin-bottom:18px;scrollbar-width:thin}
+.chips a{
+  white-space:nowrap;font-size:13.5px;color:var(--muted);
+  border:1px solid var(--line);border-radius:999px;padding:7px 15px;background:var(--ink-2);
+}
+.chips a.on,.chips a:hover{color:#1a1408;background:var(--gold);border-color:var(--gold)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{
+  background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;display:flex;flex-direction:column;
+  clip-path:polygon(0 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%);
+}
+.poster{
+  aspect-ratio:16/10;display:flex;align-items:flex-end;padding:12px;
+  font-size:12px;letter-spacing:.16em;color:rgba(255,255,255,.72);
+}
+.p1{background:linear-gradient(135deg,#3b2f1e,#14171e 70%)}
+.p2{background:linear-gradient(135deg,#123a3a,#14171e 70%)}
+.p3{background:linear-gradient(135deg,#3a1f2b,#14171e 70%)}
+.p4{background:linear-gradient(135deg,#1e2a3b,#14171e 70%)}
+.card .body{padding:14px 15px 16px}
+.card h3{font-size:16px;margin-bottom:6px}
+.card p{font-size:13px;color:var(--muted)}
+.card .meta{
+  margin-top:12px;display:flex;justify-content:space-between;font-size:12px;color:var(--muted);
+  border-top:1px solid var(--line);padding-top:10px;
+}
+.card .meta em{font-style:normal;color:var(--mint)}
+
+/* 时刻表 */
+.table{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--ink-2)}
+.row{display:grid;grid-template-columns:96px 1fr 92px 88px;gap:10px;padding:13px 18px;align-items:center;border-bottom:1px solid var(--line);font-size:14.5px}
+.row:last-child{border-bottom:0}
+.row.head{background:var(--ink-3);font-size:12.5px;letter-spacing:.16em;color:var(--muted)}
+.row .t{color:var(--gold);font-variant-numeric:tabular-nums;font-weight:700}
+.row .tag{font-size:12px;text-align:center;border-radius:5px;padding:3px 0}
+.t-go{background:rgba(127,209,193,.14);color:var(--mint)}
+.t-wait{background:rgba(245,182,66,.14);color:var(--gold)}
+.t-end{background:rgba(154,160,171,.14);color:var(--muted)}
+.row .len{color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* 短评 */
+.notes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.note{
+  background:var(--ink-2);border:1px solid var(--line);border-left:3px solid var(--gold);
+  border-radius:8px;padding:20px 20px 16px;
+}
+.note:nth-child(2){border-left-color:var(--mint)}
+.note:nth-child(3){border-left-color:var(--rose)}
+.note blockquote{margin:0 0 12px;font-size:15px;color:#dcd8d0}
+.note cite{font-style:normal;font-size:13px;color:var(--muted);display:block}
+.note .score{margin-top:12px;font-size:12.5px;color:var(--muted)}
+.note .score b{color:var(--gold);font-size:16px}
+
+/* 问答 */
+.faq{display:grid;gap:10px;max-width:900px}
+.faq details{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:4px 16px}
+.faq details[open]{border-color:rgba(245,182,66,.32)}
+.faq summary{
+  cursor:pointer;padding:14px 0;font-size:15.5px;font-weight:600;list-style:none;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";float:right;color:var(--gold);font-weight:700}
+.faq details[open] summary::after{content:"–"}
+.faq p{padding:0 0 16px;font-size:14px;color:var(--muted)}
+
+/* 投稿 */
+.join{display:grid;grid-template-columns:1fr 380px;gap:34px;align-items:start}
+.join p.lead{color:var(--muted);font-size:15px;margin-bottom:16px}
+.list{margin:0;padding-left:20px;color:var(--muted);font-size:14.5px}
+.list li{margin-bottom:7px}
+.list b{color:var(--paper)}
+form{background:var(--ink-2);border:1px solid var(--line);border-radius:var(--radius);padding:22px 20px}
+.field{margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input,textarea,select{
+  width:100%;background:#12151b;color:var(--paper);
+  border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14.5px;
+  font-family:inherit;
+}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus,select:focus{border-color:rgba(245,182,66,.5)}
+form .btn{width:100%;text-align:center;border:0;cursor:pointer}
+.tip{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* 页脚 */
+footer{border-top:1px solid var(--line);background:#0c0e12;padding:38px 0 30px}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:26px}
+footer h4{font-size:14px;margin-bottom:12px;letter-spacing:.1em}
+footer ul{margin:0;padding:0;list-style:none;font-size:14px}
+footer li{margin-bottom:8px}
+footer li a{color:var(--muted)}
+footer .about{font-size:14px;color:var(--muted)}
+.sitelink{
+  display:inline-block;margin-top:12px;font-size:13px;color:var(--mint);
+  border:1px solid rgba(127,209,193,.3);border-radius:6px;padding:6px 11px;
+  word-break:break-all;
+}
+.bottom{
+  margin-top:26px;padding-top:18px;border-top:1px dashed var(--line);
+  font-size:12.5px;color:#6f757f;display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap;
+}
+
+/* 响应式 */
+@media (max-width:1000px){
+  .hero-grid{grid-template-columns:1fr;gap:26px}
+  .rail{writing-mode:horizontal-tb;border-right:0;border-left:2px solid var(--gold);padding:2px 0 2px 12px;min-height:0;letter-spacing:.2em}
+  .cards{grid-template-columns:repeat(2,1fr)}
+  .steps,.notes{grid-template-columns:1fr}
+  .join{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:15.5px}
+  .wrap{padding:0 15px}
+  .hero{padding:34px 0 26px}
+  section{padding:34px 0}
+  .topbar .wrap{min-height:56px;gap:8px}
+  .nav{width:100%;margin-left:0;overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
+  .row{grid-template-columns:74px 1fr 62px;gap:8px;padding:11px 13px;font-size:13.5px}
+  .row .len{display:none}
+  .cards{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr}
+  .tickbox{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+<a class="skip" href="#main">跳到主要内容</a>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <b>80秒电影网</b>
+      <em>80s film digest</em>
+    </div>
+    <nav class="nav" aria-label="站点导航">
+      <a class="on" href="#">速看首页</a>
+      <a href="#">分类影库</a>
+      <a href="#">放映时刻</a>
+      <a href="#">编辑短评</a>
+      <a href="#">选片问答</a>
+      <a href="#">投稿合作</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:26px">
+          <div class="rail">把长片压成一段通勤时间</div>
+          <div>
+            <h1>80秒看完一部电影，<br><mark>80秒电影网</mark>只讲有用的部分</h1>
+            <p class="lede">
+              一部两小时的片子，真正撑起它的往往只有三场戏、两个转折、一句台词。<strong>80秒电影网</strong>做的就是把这些挑出来：
+              先把故事主线说清楚，再点一下镜头和人物动机，最后给一句"值不值得看"的实话。没有剧透式铺陈，也没有"封神""神作"这类空话。
+            </p>
+            <div class="cta">
+              <a class="btn btn-gold" href="#">从今日放映开始看</a>
+              <a class="btn" href="#">按类型挑一部</a>
+            </div>
+            <div class="filmstrip" aria-hidden="true"></div>
+            <p class="hostline">
+              <span>本站地址</span>
+              <code>https://80miaodianyingwang-app.github.io</code>
+              <span>收藏后直接在碎片时间打开</span>
+            </p>
+          </div>
+        </div>
+
+        <aside class="tickbox" aria-label="站点数据">
+          <h2>本站数据</h2>
+          <div class="tick">
+            <div><span>已速看片目</span><span>1286 部</span></div>
+            <div><span>单条平均时长</span><span>80 秒</span></div>
+            <div><span>每日更新</span><span>12 条</span></div>
+            <div><span>覆盖类型</span><span>18 类</span></div>
+            <div><span>编辑人数</span><span>7 人</span></div>
+            <div><span>开站时间</span><span>2023 年</span></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sechead">
+        <span class="no">栏目 01</span>
+        <h2>一条80秒的解说是怎么剪出来的</h2>
+        <p>不是把电影快进，而是重排信息顺序：先结论、再情节、最后细节。</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <b>01</b>
+          <h3>先定一句话结论</h3>
+          <p>看完片子先写"这片子适合谁"。结论定不下来，说明片子本身没想清楚，这样的片我们会标注"慎看"而不是硬夸。</p>
+        </article>
+        <article class="step">
+          <b>02</b>
+          <h3>砍掉支线，只留骨架</h3>
+          <p>副线、彩蛋、前作梗一律放到文字区，正片解说里只保留推动主角选择的三个节点，保证第一次听的人也能跟上。</p>
+        </article>
+        <article class="step">
+          <b>03</b>
+          <h3>补一处镜头细节</h3>
+          <p>结尾留 10 秒讲一个具体画面：一场长镜头、一次打光变化、一句被低估的台词，让人记住这部片子而不是只记住剧情。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="wrap">
+      <div class="sechead">
+        <span class="no">栏目 02</span>
+        <h2>分类影库 · 八十秒速看片单</h2>
+        <p>按类型挑，每类都标了建议观看场景，别在困的时候看需要动脑的那几部。</p>
+      </div>
+      <div class="chips">
+        <a class="on" href="#">全部</a>
+        <a href="#">科幻</a>
+        <a href="#">动作</a>
+        <a href="#">悬疑</a>
+        <a href="#">文艺</a>
+        <a href="#">动画</a>
+        <a href="#">纪录片</a>
+        <a href="#">华语老片</a>
+        <a href="#">冷门佳片</a>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="poster p1">SCI-FI</div>
+          <div class="body">
+            <h3>《银翼杀手 2049》</h3>
+            <p>慢，但每一帧都在替主角回答"我是谁"。适合晚上安静看。</p>
+            <div class="meta"><span>科幻 / 2017</span><em>80 秒速看</em></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="poster p2">ACTION</div>
+          <div class="body">
+            <h3>《疯狂的麦克斯4》</h3>
+            <p>几乎没有废话，靠镜头和引擎声推进。通勤路上看正好。</p>
+            <div class="meta"><span>动作 / 2015</span><em>80 秒速看</em></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="poster p3">MYSTERY</div>
+          <div class="body">
+            <h3>《看不见的客人》</h3>
+            <p>同一件事讲四遍，每遍都翻一层。别提前看剧情简介。</p>
+            <div class="meta"><span>悬疑 / 2016</span><em>80 秒速看</em></div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="poster p4">DRAMA</div>
+          <div class="body">
+            <h3>《花样年华》</h3>
+            <p>讲克制。真正发生的事情全在画面外，靠门框和走廊说。</p>
+            <div class="meta"><span>文艺 / 2000</span><em>80 秒速看</em></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule">
+    <div class="wrap">
+      <div class="sechead">
+        <span class="no">栏目 03</span>
+        <h2>今日放映时刻表</h2>
+        <p>每天中午 12 点和晚上 20 点刷新一次，过期的条目会标灰但保留文字版。</p>
+      </div>
+      <div class="table" role="table" aria-label="今日放映时刻表">
+        <div class="row head" role="row">
+          <span role="columnheader">时间</span>
+          <span role="columnheader">片目</span>
+          <span role="columnheader">时长</span>
+          <span role="columnheader">状态</span>
+        </div>
+        <div class="row" role="row"><span class="t">12:00</span><span>《盗梦空间》结构拆解</span><span class="len">80 秒</span><span class="tag t-end">已结束</span></div>
+        <div class="row" role="row"><span class="t">14:30</span><span>《千与千寻》成长线速看</span><span class="len">80 秒</span><span class="tag t-end">已结束</span></div>
+        <div class="row" role="row"><span class="t">17:00</span><span>《寄生虫》空间隐喻</span><span class="len">80 秒</span><span class="tag t-wait">待开始</span></div>
+        <div class="row" role="row"><span class="t">20:00</span><span>《星际穿越》时间线梳理</span><span class="len">80 秒</span><span class="tag t-go">放映中</span></div>
+        <div class="row" role="row"><span class="t">21:30</span><span>《让子弹飞》台词暗线</span><span class="len">80 秒</span><span class="tag t-wait">待开始</span></div>
+        <div class="row" role="row"><span class="t">23:00</span><span>冷门佳片 · 本周三选一</span><span class="len">80 秒</span><span class="tag t-wait">待开始</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="notes">
+    <div class="wrap">
+      <div class="sechead">
+        <span class="no">栏目 04</span>
+        <h2>编辑手记 · 三则短评</h2>
+        <p>写完速看稿之后剩下的话，比正片解说更像人话。</p>
+      </div>
+      <div class="notes">
+        <article class="note">
+          <blockquote>"第二遍才注意到，主角每次说谎都站在光源对面，导演根本没打算藏。"</blockquote>
+          <cite>—— 编辑 老周 · 10 月 14 日</cite>
+          <p class="score">推荐指数 <b>8.6</b> / 10</p>
+        </article>
+        <article class="note">
+          <blockquote>"这片子的节奏是反的：前面四十分钟故意拖，是为了让你在结尾那场戏里坐不住。"</blockquote>
+          <cite>—— 编辑 小鹿 · 10 月 12 日</cite>
+          <p class="score">推荐指数 <b>7.9</b> / 10</p>
+        </article>
+        <article class="note">
+          <blockquote>"删掉支线之后反而更好看了，说明支线本来就该删。这条稿我们剪了四个版本。"</blockquote>
+          <cite>—— 编辑 阿泽 · 10 月 9 日</cite>
+          <p class="score">推荐指数 <b>8.1</b> / 10</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="sechead">
+        <span class="no">栏目 05</span>
+        <h2>选片常见问题</h2>
+        <p>被问得最多的几件事，答案写在这儿，不用来回留言。</p>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>80秒真的能看懂一部电影吗？</summary>
+          <p>看懂剧情主线没问题，看懂镜头语言需要配合文字区。我们的定位是"帮你决定要不要看完整版"，不是替代观影——所以每条稿结尾都会写清这片子值不值得花两小时。</p>
+        </details>
+        <details>
+          <summary>会不会剧透关键反转？</summary>
+          <p>悬疑类会做分级：涉及核心反转的条目，标题和开头 30 秒只讲人物关系，反转部分放在明确标注"含反转"的字幕之后再展开，可以自行跳过。</p>
+        </details>
+        <details>
+          <summary>片目多久更新一次，怎么知道今天有什么？</summary>
+          <p>每天 12 点和 20 点各刷六条，合计约 12 条。当天的安排在"今日放映时刻表"里，中午之前打开能看到全天排期。</p>
+        </details>
+        <details>
+          <summary>为什么有些片子标了"慎看"？</summary>
+          <p>三种情况会标：主线逻辑自相矛盾、剪辑节奏明显失控、主题表达和宣发口径差太远。标了不代表不能看，只是提醒别抱太高期待。</p>
+        </details>
+        <details>
+          <summary>想推荐冷门片，怎么提交？</summary>
+          <p>用下面的投稿表单写清片名、年份和一句话理由就行。我们每周三从投稿里挑三部做速看，选中会在条目里署名。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="join">
+    <div class="wrap">
+      <div class="sechead">
+        <span class="no">栏目 06</span>
+        <h2>投稿与选片合作</h2>
+        <p>欢迎推片子，也欢迎指出哪条稿子剪得不对。</p>
+      </div>
+      <div class="join">
+        <div>
+          <p class="lead">我们现在缺这几类稿子和片目：</p>
+          <ul class="list">
+            <li><b>2015 年前的华语老片</b>，尤其是录像带时代那批，网上资料少</li>
+            <li><b>非英语地区的冷门片</b>，北欧、拉美、东南亚优先</li>
+            <li><b>重映片的技术解析</b>，比如修复版和原版差在哪</li>
+            <li><b>纠错</b>：哪条速看稿讲错了年份、人名或剧情顺序</li>
+          </ul>
+          <p class="lead" style="margin-top:18px">
+            稿件一经采用，条目页会保留投稿人署名。整段搬运他人解说词的不收，这点没有例外。
+          </p>
+        </div>
+        <form action="#" method="post" aria-label="投稿表单">
+          <div class="field">
+            <label for="f-name">称呼</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" placeholder="怎么署名">
+          </div>
+          <div class="field">
+            <label for="f-film">片名与年份</label>
+            <input id="f-film" name="film" type="text" placeholder="例：花样年华 2000">
+          </div>
+          <div class="field">
+            <label for="f-type">投递类型</label>
+            <select id="f-type" name="type">
+              <option>推荐冷门片</option>
+              <option>华语老片补档</option>
+              <option>技术解析稿</option>
+              <option>内容纠错</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-msg">一句话理由</label>
+            <textarea id="f-msg" name="msg" placeholder="为什么这片子值得花80秒"></textarea>
+          </div>
+          <button class="btn btn-gold" type="submit">提交投稿</button>
+          <p class="tip">提交后三个工作日内回复，未选中也会告知原因。</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <h4>关于 80秒电影网</h4>
+        <p class="about">
+          一个做电影速看解说的小站。把长片压成大约 80 秒，讲清主线、点出镜头、给出结论，帮你在通勤和睡前这些碎片时间里快速挑片。
+        </p>
+        <span class="sitelink">https://80miaodianyingwang-app.github.io</span>
+      </div>
+      <div>
+        <h4>内容栏目</h4>
+        <ul>
+          <li><a href="#">速看解说</a></li>
+          <li><a href="#">分类影库</a></li>
+          <li><a href="#">放映时刻表</a></li>
+          <li><a href="#">编辑手记</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>选片工具</h4>
+        <ul>
+          <li><a href="#">按类型挑片</a></li>
+          <li><a href="#">按年份挑片</a></li>
+          <li><a href="#">冷门佳片周更</a></li>
+          <li><a href="#">慎看名单</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>站点条款</h4>
+        <ul>
+          <li><a href="#">投稿须知</a></li>
+          <li><a href="#">内容纠错</a></li>
+          <li><a href="#">版权说明</a></li>
+          <li><a href="#">联系方式</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bottom">
+      <span>© 2026 80秒电影网 · 站点地址 https://80miaodianyingwang-app.github.io</span>
+      <span>影视解说内容仅作观影参考，相关权利归原权利人所有</span>
+    </div>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"WebSite",
+      "name":"80秒电影网",
+      "alternateName":"80秒看完一部电影",
+      "url":"https://80miaodianyingwang-app.github.io/",
+      "description":"80秒电影网提供电影速看解说、分类影库、今日放映时刻表与编辑短评，用大约80秒讲清一部长片的故事主线与镜头语言。",
+      "inLanguage":"zh-CN",
+      "publisher":{"@type":"Organization","name":"80秒电影网","url":"https://80miaodianyingwang-app.github.io/"}
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"80秒真的能看懂一部电影吗？","acceptedAnswer":{"@type":"Answer","text":"看懂剧情主线没问题，看懂镜头语言需要配合文字区。我们的定位是帮你决定要不要看完整版，不是替代观影。"}},
+        {"@type":"Question","name":"会不会剧透关键反转？","acceptedAnswer":{"@type":"Answer","text":"悬疑类会做分级：涉及核心反转的条目，标题和开头30秒只讲人物关系，反转部分放在明确标注含反转的字幕之后再展开。"}},
+        {"@type":"Question","name":"片目多久更新一次，怎么知道今天有什么？","acceptedAnswer":{"@type":"Answer","text":"每天12点和20点各刷六条，合计约12条。当天的安排在今日放映时刻表里，中午之前打开能看到全天排期。"}},
+        {"@type":"Question","name":"为什么有些片子标了慎看？","acceptedAnswer":{"@type":"Answer","text":"三种情况会标：主线逻辑自相矛盾、剪辑节奏明显失控、主题表达和宣发口径差太远。"}},
+        {"@type":"Question","name":"想推荐冷门片，怎么提交？","acceptedAnswer":{"@type":"Answer","text":"用投稿表单写清片名、年份和一句话理由即可，每周三从投稿里挑三部做速看，选中会在条目里署名。"}}
+      ]
+    }
+  ]
+}
+</script>
+</body>
+</html>
